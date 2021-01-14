@@ -9,13 +9,33 @@ document.addEventListener
 
 		let birdLeft = 220
 		let birdBottom = 100
+		let gravity = 2
 
-		startGame = () => {
-			bird.style.left = birdLeft		//No need to append px as it is the default unit
+
+		const startGame = () =>
+		{
+			birdBottom -= gravity
 			bird.style.bottom = birdBottom
 		}
 
-		startGame()
+		const jump = () =>
+		{
+			if (birdBottom < 500)
+			birdBottom += 50
+			bird.style.bottom = birdBottom
+		}
 
+		bird.style.left = birdLeft
+
+		let var1 = setInterval(startGame, 20)
+
+		document.addEventListener
+		(
+			'keypress',
+			jump
+		)
+		
+		
+		// clearInterval(gameTimer)
 	}
 )
