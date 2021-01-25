@@ -11,29 +11,82 @@ document.addEventListener
 		let birdBottom = 100
 		let gravity = 2
 
+		const control = (e) =>
+		{
+			if (e.key == ' ')
+			{
+				jump()
+			}
+		}
 
 		const startGame = () =>
 		{
-			birdBottom -= gravity
+			if (birdBottom > 0)
+				birdBottom -= gravity
 			bird.style.bottom = birdBottom
 		}
 
 		const jump = () =>
 		{
 			if (birdBottom < 500)
-			birdBottom += 50
-			bird.style.bottom = birdBottom
+			{
+				birdBottom += 50
+				bird.style.bottom = birdBottom
+			}
 		}
 
 		bird.style.left = birdLeft
 
-		let var1 = setInterval(startGame, 20)
+		let gameTimer = setInterval(startGame, 20)
 
 		document.addEventListener
 		(
 			'keypress',
-			jump
+			control
 		)
+
+		const generateObstacle = () =>
+		{
+			var randomHeight = Math.random() * 200 - 50
+
+			var obstacleLeft = 500
+			var obstacleBottom = randomHeight
+
+			const topObstacle = document.createElement('div')
+			const bottomObstacle = document.createElement('div')
+
+			topObstacle.classList.add('obstacle')
+			bottomObstacle.classList.add('obstacle')
+
+			viewPort.appendChild(topObstacle)
+			viewPort.appendChild(bottomObstacle)
+
+			topObstacle.style.left = obstacleLeft
+			bottomObstacle.style.left = obstacleLeft
+			topObstacle.style.bottom = obstacleBottom
+			bottomObstacle.style.bottom = obstacleBottom + 500
+
+			const moveObstacle = () =>
+			{
+				obstacleLeft -= 2
+
+				topObstacle.style.left = obstacleLeft
+				bottomObstacle.style.left = obstacleLeft
+
+				if (obstacleLeft == -60)
+				{
+					clearInterval(obstacleTimer)
+
+					viewPort.removeChild(topObstacle)
+					viewPort.removeChild(bottomObstacle)
+				}
+			}
+
+			const obstacleTimer = setInterval(moveObstacle, 20)
+			setTimeout(generateObstacle, 3000)
+		}
+
+		generateObstacle()
 		
 		
 		// clearInterval(gameTimer)
