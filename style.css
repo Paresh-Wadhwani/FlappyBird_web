@@ -20,6 +20,7 @@
 	height: 150px;
 	position: absolute;
 	top: 580;
+	z-index: 2;
 }
 
 .bird
@@ -28,4 +29,12 @@
 	position: absolute;
 	width: 60px;
 	height: 45px;
+}
+
+.obstacle
+{
+	background: green;
+	width: 60;
+	height: 300;
+	position: absolute;
 }
